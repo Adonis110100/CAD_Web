@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="AdminManage.ashx" name="form" method="post">
+        <div>
+            <select id="select_Query" name="select_Query">
+                <option>教师</option>
+                <option>班级</option>
+                <option>学生</option>
+            </select>
+            名单管理
+            <input type="submit" value="开始查询" />
+        </div>
+    </form>
+    <div>
+        <input type="text" id="inputText" placeholder="请输入姓名"/>
+        <input type="submit" value="添加" onclick="Add();" />
+        <input type="submit" value="批量添加" onclick="BatchAdd();" />
+    </div>
+    <table border="1" style="display:none">
+        <tr>
+            <th id="addType">
+                $col1
+            </th>
+            <th>
+                $col2
+            </th>
+        </tr>
+        <tr style="display:table-row">
+            <th>
+                $content
+            </th>
+        </tr>
+    </table>
+    <div><a href="">题库管理（批量打开与冻结）</a></div>
+    <script>
+        function Add() {
+            var text = document.getElementById("inputText").innerText;
+            if (text.length == 0 || text.indexOf(" ") != -1 || typeof text == "undefined" || text == null || text == "" || !text.match(/^[A-Za-z0-9\u4e00-\u9fa5]{2,10}$/)) {
+                alert('请确认您输入的值正确无误！');
+                return;
+            }
+            var queryList = document.getElementsByName("queryResult");
+            for (var i = 0; i < queryList.length; i++) {
+                if (text == queryList[i].innerHTML.trim()) {
+                    alert('您输入的值已存在，请检查后重新输入。');
+                    return;
+                }
+            }
+            $.ajax({
+                type: "Post",
+                url: "AdminQuery.ashx",
+                dataType: "text",
+                data: { handleType: "Add", name: text },
+                success: function () {
+                    alert("添加成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("添加失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+
+        function BatchAdd() {
+
+        }
+
+        function Block(obj) {
+
+        }
+    </script>
+</body>
+</html>

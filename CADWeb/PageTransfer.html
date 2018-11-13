@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <!--暂时不用
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    -->
+    <meta charset="UTF-8">
+    <title>建筑学院考试系统</title>
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+</head>
+
+<body>
+    <!--
+    <a href="javascript:;" class="act-but submit2" id="MakeOutQuestions" style="display:none" onclick="ChangeIframeSrc.call(this)">出题态</a>
+    <a href="javascript:;" class="act-but submit2" id="MakeStandardAnswers" style="display:none" onclick="ChangeIframeSrc.call(this)">制作标准答案态</a>
+    <a href="javascript:;" class="act-but submit2" id="StudentsAnswer" style="display:none" onclick="ChangeIframeSrc.call(this)">学生答题态</a>
+    <a href="javascript:;" class="act-but submit2" id="Query" style="display:none" onclick="ChangeIframeSrc.call(this)">查阅态</a>
+    <fieldset><iframe id="_iframe" src="/StudentsAnswer.html" frameborder="0" width="100%" height="100%"></iframe></fieldset>
+    -->
+    <script languge='javascript'>
+        if (location.search != null) {
+            var tempStr = location.search;
+        }
+        var index = tempStr.indexOf("=");
+        var userType = tempStr.substr(index + 1);
+        $(function () {
+            switch (userType) {
+                case "Student":
+                    window.location.href = "WebPageByUserType/Student/Student.html";
+                    //document.getElementById("StudentsAnswer").style.display = "block";
+                    break;
+                case "Teacher":
+                    window.location.href = "WebPageByUserType/Teacher/Teacher.html";
+                    //document.getElementById("MakeOutQuestions").style.display = "block";
+                    //document.getElementById("Query").style.display = "block";
+                    break;
+                case "Admin":
+                    window.location.href = "WebPageByUserType/Admin/Admin.html";
+                    //document.getElementById("MakeStandardAnswers").style.display = "block";
+                    break;
+                case "SuperAdmin":
+                    window.location.href = "WebPageByUserType/SuperAdmin/SuperAdmin.html";
+                    //document.getElementById("StudentsAnswer").style.display = "block";
+                    //document.getElementById("MakeOutQuestions").style.display = "block";
+                    //document.getElementById("MakeStandardAnswers").style.display = "block";
+                    //document.getElementById("Query").style.display = "block";
+                    break;
+            }
+        })
+        /*
+        function ChangeIframeSrc() {
+            var temp = $(this).attr("id");
+            switch (temp) {
+                case "MakeOutQuestions":
+                    document.getElementById("_iframe").src = "/MakeOutQuestions.html";
+                    break;
+                case "MakeStandardAnswers":
+                    document.getElementById("_iframe").src = "/MakeStandardAnswers.html";
+                    break;
+                case "StudentsAnswer":
+                    document.getElementById("_iframe").src = "/StudentsAnswer.html";
+                    break;
+                case "Query":
+                    document.getElementById("_iframe").src = "/Query.html";
+                    break;
+            }
+        }
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        function setCookie(name, value) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + 24 * 60 * 60 * 1000);
+            document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+        }
+        function getCookie(name) {
+            var regExp = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            var arr = document.cookie.match(regExp);
+            if (arr == null) {
+                return null;
+            }
+            return unescape(arr[2]);
+        }
+    </script>
+</head>
+<body>
+    <form action="SuperAdminManage.ashx" name="form" method="post">
+        <div>
+            <select id="select_Query" name="select_Query" onclick="setCookie('select_Query',this.selectedIndex)">
+                <option>学校名添加、冻结、删除</option>
+                <option>管理员添加、冻结、删除</option>
+                <option>教师删除</option>
+                <option>学生批量删除</option>
+                <option>题库批量删除</option>
+                <option>成绩批量删除</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="开始查询" />
+        </div>
+    </form>
+    <div style="display:none">$input</div>
+    <table border="1" style="display:none">
+        <tr>
+            <th id="addType">
+                $col1
+            </th>
+        </tr>
+        <tr style="display:table-row">
+            <th>
+                $content
+            </th>
+        </tr>
+    </table>
+    <div style="display:none">$batchDelete</div>
+    <script>
+        function Add(obj) {
+            var intxt = $("#inputName").val();
+            if (intxt.length == 0 || intxt.indexOf(" ") != -1 || typeof intxt == "undefined" || intxt == null || intxt == "" || !intxt.match(/^[A-Za-z0-9\u4e00-\u9fa5]{2,10}$/)) {
+                alert('请确认您输入的值正确无误！');
+                window.location.href = 'SuperAdmin.html';
+                document.forms["form"].submit();
+                return;
+            }
+            var queryList = $("td[id='queryResult']");
+            for (var i = 0; i < queryList.length; i++) {
+                if (intxt == queryList[i].innerHTML.trim()) {
+                    alert('您输入的值已存在，请检查后重新输入。');
+                    document.forms["form"].submit();
+                    return;
+                }
+            }
+            $.ajax({
+                type: "Post",
+                url: "SuperAdminQuery.ashx",
+                dataType: "text",
+                data: { queryType: "Add", name: intxt, type: document.getElementById("addType").innerHTML },
+                success: function () {
+                    alert("添加成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("添加失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+
+        function Block(obj) {
+            var num = obj.name;
+            var state = document.getElementsByName("state" + num)[0].innerHTML;
+            if (state == "已冻结") {
+                alert("您选择的账户已被冻结！请重新选择。");
+                return;
+            }
+            $.ajax({
+                type: "Post",
+                url: "SuperAdminQuery.ashx",
+                dataType: "text",
+                data: { queryType: "Block", name: document.getElementsByName("queryResult" + num)[0].innerHTML },
+                success: function () {
+                    alert("冻结成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("冻结失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+
+        function Delete(obj) {
+            var num = obj.name;
+            $.ajax({
+                type: "Post",
+                url: "SuperAdminQuery.ashx",
+                dataType: "text",
+                data: { queryType: "Delete", name: document.getElementsByName("queryResult" + num)[0].innerHTML },
+                success: function () {
+                    alert("删除成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("删除失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+
+        function BatchDelete() {
+            var cheakBoxList = document.getElementsByName("BatchDelTarget");
+            var delStr = "";
+            for (var i = 0; i < cheakBoxList.length; i++) {
+                if (cheakBoxList[i].checked) {
+                    delStr += document.getElementsByName("queryResult" + i)[0].innerHTML + "|"
+                }
+            }
+            if (delStr == "") {
+                alert("请先选择您要批量删除的信息");
+                return;
+            }
+            $.ajax({
+                type: "Post",
+                url: "SuperAdminQuery.ashx",
+                dataType: "text",
+                data: { queryType: "BatchDelete", name: delStr},
+                success: function () {
+                    alert("批量删除成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("批量删除失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        var selectedIndex = getCookie("select_Query");
+        if (selectedIndex != null) {
+            document.getElementById("select_Query").selectedIndex = selectedIndex;
+        }
+    </script>
+</body>
+</html>

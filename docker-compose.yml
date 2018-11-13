@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  cadweb:
+    image: ${DOCKER_REGISTRY}cadweb
+    build:
+      context: .\CADWeb
+      dockerfile: Dockerfile
