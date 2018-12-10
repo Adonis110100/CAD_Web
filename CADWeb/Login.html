@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en" class="no-js">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>建筑学院考试系统</title>
+    <title> 建筑学院考试系统 </title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <!--必要样式-->
@@ -13,6 +14,7 @@
     <script src="js/html5.js"></script>
     <![endif]-->
 </head>
+
 <body>
     <div class="container demo-1">
         <div class="content">
@@ -29,7 +31,12 @@
                             <span class="us_uer"></span>
                             <input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
                         </div>
-                        <div class="mb2"><input type="submit" class="act-but submit" style="color: #FFFFFF" value="登录"></div>
+                        <select name="school" id="_select" style="display:inline-block" class="input_outer" onclick="sessionStorage.setItem('schoolName', this.value)">
+                            <option disabled selected style="display:none">请选择学校</option>
+                        </select>
+
+                        <input type="submit" class="act-but submit" style="color: #FFFFFF" value="登录" onclick="if (document.getElementById('_select').value == '请选择学校') { alert('请先选择学校'); event.preventDefault(); }">
+
                     </form>
                 </div>
             </div>
@@ -39,5 +46,21 @@
     <script src="js/EasePack.min.js"></script>
     <script src="js/rAF.js"></script>
     <script src="js/demo-1.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "Post",
+                url: "QueryExistSchool.ashx",
+                success: function (data) {
+                    var school = data.split('|');
+                    for (var i = 0; i < school.length; i++) {
+                        $("#_select").append("<option>" + school[i] + "</option>");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

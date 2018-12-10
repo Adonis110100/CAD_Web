@@ -27,7 +27,7 @@ namespace CADWeb
             if (!string.IsNullOrEmpty(userType))
             {
                 userInfo.UserType = userType;
-                response.Write("<script> $.cookie('PageTransferUserType', '" + userType + "') </script>");
+                response.Write("<script type='text/javascript'> $.cookie('PageTransferUserType', '" + userType + "') </script>");
                 switch (userType)
                 {
                     case "Student":
@@ -50,7 +50,7 @@ namespace CADWeb
         {
             get
             {
-                return false;
+                return true;
             }
         }
     }

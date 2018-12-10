@@ -1,0 +1,516 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f3f3f3;
+}
+
+#banner {
+    color: #ffffff;
+    width: 1220px;
+    height: 50px;
+    margin: 0 auto;
+    background: #3C8DBC;
+    font-size: 20px;
+    line-height: 45px;
+}
+
+#select_Menu {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#center {
+    margin: 0 auto;
+    text-align: center;
+    width: 1220px;
+    margin: 0 auto;
+}
+
+#exam_a {
+    margin: 0 auto;
+    width: 1220px;
+    text-align: center;
+    border: solid 1px rgb(224, 224, 224);
+}
+
+.iframe {
+    width: 1000px;
+    border: 0;
+}
+
+.but_search {
+    cursor: pointer;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 40px;
+    width: 80px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+}
+
+.but_search:hover {
+    background: rgb(41, 101, 131);
+}
+
+.select_Name {
+    background-color: #a9adb6;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 40px;
+    width: 80px;
+}
+
+#select_Query {
+    display: inline-block;
+    font-family: "微软雅黑";
+    margin: 40px 40px 40px 0;
+    background: rgba(0, 0, 0, 0);
+    width: 249px;
+    height: 40px;
+    font-size: 17px;
+}
+
+.add_type {
+    border: solid 1px #a9a9a9;
+    display: inline-block;
+    font-family: "微软雅黑";
+    background: rgba(0, 0, 0, 0);
+    width: 249px;
+    height: 40px;
+    font-size: 17px;
+}
+
+.but_add1 {
+    cursor: pointer;
+    background: #32cca8;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+.but_add1:hover {
+    background: rgb(52, 165, 71);
+}
+
+.but_add2 {
+    cursor: pointer;
+    background: #E7BD1B;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+.but_add2:hover {
+    background: rgb(156, 143, 19);
+}
+
+.library {
+    float: left;
+    margin: 20px 100px 20px 900px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.href {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+    line-height: 50px;
+}
+
+#middle {
+    width: 1220px;
+    margin: 0 auto;
+}
+
+#middle .mid_1 #inputName {
+    border: solid 1px #a9a9a9;
+    display: inline-block;
+    font-family: "微软雅黑";
+    background: rgba(0, 0, 0, 0);
+    width: 247px;
+    height: 40px;
+    font-size: 17px;
+    margin: 0 40px 0 0;
+}
+
+#middle .mid_1 {
+    margin: 20px auto;
+}
+
+#middle .mid_2 {
+    margin: 20px auto;
+}
+
+#middle .mid_1 button {
+    cursor: pointer;
+    background: #32cca8;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+#middle .mid_2 button {
+    cursor: pointer;
+    background: rgb(224, 16, 186);
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+p {
+    text-align: center;
+}
+
+table {
+    width: 1000px;
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table td,
+table th {
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 50px;
+}
+
+table thead th {
+    background-color: #CCE8EB;
+    width: 100px;
+}
+
+table tr:nth-child(odd) {
+    background: #fff;
+}
+
+table tr:nth-child(even) {
+    background: #F1f2f4;
+}
+
+table input {
+    float: left;
+    margin-left: 30px;
+}
+
+.but_back {
+    cursor: pointer;
+    background: #32cca8;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+    margin: 0 0 0 1000px;
+}
+
+.examName {
+    display: inline;
+    color: rgb(17, 16, 16);
+}
+
+#footer {
+    width: 1220px;
+    height: 60px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+#footer1 {
+    width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
+    background: #3C8DBC;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.select_on {
+    border: solid 1px rgb(26, 188, 156)
+}
+
+li {
+    list-style-type: none;
+}
+
+.but_in {
+    margin: 0 auto;
+    cursor: pointer;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 50px;
+    width: 280px;
+    font-family: "微软雅黑";
+    background-color: rgb(233, 104, 107);
+}
+
+.but_in2 {
+    margin: 0 auto;
+    cursor: pointer;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 50px;
+    width: 500px;
+    font-family: "微软雅黑";
+    background-color: rgb(233, 104, 107);
+}
+
+.but_in:hover {
+    background: rgb(186, 53, 55);
+}
+
+.but_in2:hover {
+    background: rgb(186, 53, 55);
+}
+
+.but_back {
+    cursor: pointer;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+    margin-right: 30px;
+    margin-left: 0;
+    margin-top: 5px;
+    float: right;
+}
+
+#bannerT {
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+#add_Title {
+    margin: 0 auto;
+    padding: 10px;
+    font-family: "微软雅黑";
+    font-size: 25px;
+    border: solid 1px rgb(246, 105, 85);
+    background: rgb(246, 105, 85);
+    color: #ffffff;
+}
+
+#MyFileUpload {
+    cursor: pointer;
+    font-size: 17px;
+    font-family: "微软雅黑";
+}
+
+#FileUploadButton {
+    cursor: pointer;
+    color: #ffffff;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+}
+
+#FileUploadButton:hover {
+    background: rgb(41, 101, 131);
+}
+
+#ChoiceToSql {
+    cursor: pointer;
+    background: #32cca8;
+    border: 0;
+    width: 150px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+    margin: 0 0 30px 275px;
+}
+
+#ChoiceToSql:hover {
+    background: rgb(52, 165, 71);
+}
+
+#AdQuestion {
+    cursor: pointer;
+    background: #E7BD1B;
+    border: 0;
+    width: 80px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+#AdQuestion:hover {
+    background: rgb(156, 143, 19);
+}
+
+#MyFileUpload {
+    cursor: pointer;
+    margin-left: 286px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+}
+
+#submit {
+    cursor: pointer;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 40px;
+    width: 80px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+}
+
+#submit:hover {
+    background: rgb(41, 101, 131);
+}
+
+#next {
+    border-style: none;
+    border-color: inherit;
+    border-width: 0;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    width: 80px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+}
+
+#next:hover {
+    background: rgb(41, 101, 131);
+}
+
+.but_add3 {
+    cursor: pointer;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 40px;
+    width: 100px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+    margin: 10px 10px;
+}
+
+.but_add3:hover {
+    background: rgb(41, 101, 131);
+}
+
+#type {
+    float: left;
+    margin-left: 30px;
+    width: 300px;
+    height: 40px;
+}
+
+table .type1 {
+    width: 50px;
+}
+
+table .type2 {
+    width: 50px;
+}
+
+.span1 {
+    margin-left: 400px;
+}
+
+#foot {
+    color: #ffffff;
+    width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0px;
+    background: #3C8DBC;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+#inputClass {
+    border: solid 1px #a9a9a9;
+    display: inline-block;
+    font-family: "微软雅黑";
+    background: rgba(0, 0, 0, 0);
+    width: 500px;
+    height: 40px;
+    font-size: 17px;
+    margin: 20px auto;
+}
+
+#DropDownList1 {
+    display: inline-block;
+    font-family: "微软雅黑";
+    margin: 40px 40px 40px 0;
+    background: rgba(0, 0, 0, 0);
+    width: 249px;
+    height: 40px;
+    font-size: 17px;
+}
+
+#lbl_innum_link {
+    font-family: "微软雅黑";
+    font-size: 18px;
+}
+
+#Button1 {
+    cursor: pointer;
+    margin-left: 420px;
+    background: #32cca8;
+    border: 0;
+    width: 200px;
+    height: 40px;
+    font-size: 17px;
+    font-family: "微软雅黑";
+    color: rgb(255, 255, 255);
+}
+
+#Button1:hover {
+    background: rgb(52, 165, 71);
+}
+
+.but_add5 {
+    line-height: 40px;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    height: 40px;
+    width: 100px;
+    font-family: "微软雅黑";
+    background-color: #3C8DBC;
+    margin: 10px 150px;
+}
+
+.but_add5:hover {
+    background: rgb(41, 101, 131);
+}

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel='stylesheet' href='../css/style.css'>
+</head>
+
+<body>
+    <div id="banner">&nbsp;&nbsp;
+        出题入题库(选择题，判断题，绘图题)，导入题库</div>
+    <div id="center">
+        <br>
+        <HR width="100%" color=#E4E4E4 SIZE=2>
+        <br>
+        <div><iframe class='iframe' onload="reinitIframe(this)" src="AddQuestion1.aspx"></iframe></div>
+        <HR width="80%" color=#E4E4E4 SIZE=2><br>
+        <div><iframe class='iframe' onload="reinitIframe(this)" src="AddQuestion2.aspx"></iframe></div>
+        <HR width="80%" color=#E4E4E4 SIZE=2><br>
+        <div><iframe class='iframe' onload="reinitIframe(this)" src="AddQuestion3.aspx"></iframe></div>
+    </div>
+    <div id="foot"></div>
+    <div id="footer"></div>
+    <script type="text/javascript">
+        function reinitIframe(obj) {
+            var bHeight = obj.contentWindow.document.body.scrollHeight;
+            var dHeight = obj.contentWindow.document.documentElement.scrollHeight;
+            var height = Math.max(bHeight, dHeight);
+            obj.height = height;
+        }
+    </script>
+</body>
+
+</html>

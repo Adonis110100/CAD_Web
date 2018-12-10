@@ -19,9 +19,16 @@ namespace CADWeb
             response.ContentType = "text/html";
             string userName = request.Params["logname"];
             string userPass = request.Params["logpass"];
-
+            string school = request["school"];
+            string newUserName = "",gradeClass="";
+            gradeClass = request.Params["gradeClass"];
+            //Console.WriteLine(school);
             SQLQuery query = new SQLQuery();
-            string queryResult = query.IsUserExist(userName, userPass);
+
+            string queryResult = query.IsUserExist(userName, userPass,school,out newUserName,out gradeClass);
+            //userName = newUserName;
+            //request.Params["logname"] = userName;
+            //gradeClass = context.Request.Params["gradeClass"];
             string[] str = queryResult.Split('|');
             string isUserExist = str[0];
             string userState = str[1];
@@ -31,10 +38,13 @@ namespace CADWeb
                 UserInfo userInfo = new UserInfo();
                 userInfo.UserName = userName;
                 userInfo.UserPassword = userPass;
+                userInfo.School = school;
+                userInfo.GradeClass = gradeClass;
+
 
                 response.Write("<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>");
                 response.Write("<script type='text/javascript' src='js/jquery.cookie.js'></script>");
-                response.Write("<script> $.cookie('PageTransferUserName', '" + userName + "'); alert('成功进入！'); </script>");
+                response.Write("<script type='text/javascript'> $.cookie('School', '" + school + "'); $.cookie('UserName','" + newUserName + "');$.cookie('UserID','" + userName + "');$.cookie('gradeClass','" + gradeClass+"');</script>");//alert('成功进入！'); 
                 response.Flush();
                 //判断用户类型跳转至功能不同的系统
                 JudgeUserType judgeUserType = new JudgeUserType(userInfo);

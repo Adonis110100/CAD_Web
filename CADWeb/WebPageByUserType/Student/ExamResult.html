@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="P3P" content='CP="IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA"'>
+    <title>考试结果</title>
+    <script type='text/javascript' src="../../js/jquery-1.7.2.min.js"></script>
+    <script type='text/javascript' src='../../js/jquery.cookie.js'></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="banner">
+        <span id="bannerT">&nbsp;&nbsp;考试结果&nbsp;试卷名:&nbsp;</span>
+        <button class="but_back" onclick="Back();">返回</button>
+    </div>
+    <br>
+    <HR width="80%" color=#E4E4E4 SIZE=2>
+    <div id="exam_a">
+        <h2 id="score" style="color:red">得分：</h2>
+        <h3 id="ChoiceQAnswer" style="color:rgb(25, 29, 29)">选择题作答：</h3>
+        <h3 id="JudgementQAnswer" style="color:rgb(30, 36, 36)">判断题作答：</h3>
+        <iframe class="iframe" id="iframe0" name="_iframe" src="ExamQuestions/$CQuestions.html"></iframe>
+        <iframe class="iframe" id="iframe1" name="_iframe" src="ExamQuestions/$JQuestions.html"></iframe>
+        <iframe class="iframe" id="iframeDraw" name="_iframe" src="ExamQuestions/DrawingQuertions.aspx?examName=$"></iframe>
+        <!-- <iframe class="iframe" name="_iframe" onload="ReinitIframe(this)" src="ExamQuestions/DrawingQuertions.aspx"></iframe> -->
+    </div>
+    <div id="foot"></div>
+    <script type="text/javascript">
+        //let aspAddress = "ExamQuestions/DrawingQuertions.aspx?examName=" + sessionStorage.getItem("answer_examName");
+        //let documen.getElementsByName("_iframe")[2].src = aspAddress;
+        $(document).ready(function() {
+            let examName = sessionStorage.getItem("answer_examName");
+            let examQSum = decodeURI($.cookie('examQSum'));
+            let iframes = document.getElementsByName("_iframe");
+            let bannerT = document.getElementById("bannerT");
+            bannerT.innerHTML = bannerT.innerText + "<div class='examName'>" + examName + "</div>";
+            for (let i = 0; i < iframes.length; i++) {
+                let tempSrc = iframes[i].src;
+                let newSrc = tempSrc.replace("$", examName);
+                iframes[i].src = newSrc;
+                $('#iframe' + i).load(function() {
+                    let tempDoc = $('#iframe' + i)[0].contentWindow.document;
+                    for (let x = 0; x < tempDoc.getElementsByName("QuestionPic").length; x++) {
+                        tempDoc.getElementsByName('QuestionPic')[x].style.display = 'block';
+                        tempDoc.getElementsByName('Answer')[x].style.display = 'block';
+                    }
+                    onload = ReinitIframe(this);
+                })
+            }
+            $('#iframeDraw').load(function() {
+                onload = ReinitIframe(this);
+            })
+            let answers = sessionStorage.getItem("stuAnswer").split('|');
+            document.getElementById("score").innerHTML += answers[answers.length - 1];
+            document.getElementById("ChoiceQAnswer").innerHTML += answers[0];
+            document.getElementById("JudgementQAnswer").innerHTML += answers[1];
+        })
+    </script>
+    <script type="text/javascript">
+        function ReinitIframe(obj) {
+            let bHeight = obj.contentWindow.document.body.scrollHeight;
+            let dHeight = obj.contentWindow.document.documentElement.scrollHeight;
+            let height = Math.max(bHeight, dHeight);
+            obj.height = height;
+        }
+
+        function Back() {
+            window.location.href = "QueryTestAnswer.ashx";
+        }
+    </script>
+</body>
+
+</html>

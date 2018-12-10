@@ -9,4 +9,8 @@ public class UserInfo
     public string UserPassword { get; set; }
     public string UserType { get; set; }
     public int UserState { get; set; }
+    public string School { get; set; }
+    public string GradeClass { get; set; }
+
+
 }

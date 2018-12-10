@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Canvas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Canvas.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonTools, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\CommonTools.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -69,6 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CanvasEXE\setup.exe" />
+    <Content Include="css\custom.css" />
+    <Content Include="js\custom.js" />
     <Content Include="PageTransfer.html" />
     <Content Include="css\component.css" />
     <Content Include="css\demo.css" />
@@ -85,9 +96,30 @@
     <Content Include="Login.html" />
     <Content Include="Web.config" />
     <Content Include="WebPageByUserType\Admin\Admin.html" />
+    <Content Include="WebPageByUserType\css\buttons.css" />
+    <Content Include="WebPageByUserType\css\style.css" />
+    <Content Include="WebPageByUserType\Student\ExamQuestions\ChoiceQuestions.html" />
+    <Content Include="WebPageByUserType\Student\Exam.html" />
+    <Content Include="WebPageByUserType\Student\ExamQuestions\DrawingQuertions.aspx" />
+    <Content Include="WebPageByUserType\Student\ExamQuestions\JudgmentQuestions.html" />
+    <Content Include="WebPageByUserType\Student\ExamResult.html" />
     <Content Include="WebPageByUserType\Student\Student.html" />
     <Content Include="WebPageByUserType\SuperAdmin\SuperAdmin.html" />
+    <Content Include="WebPageByUserType\Teacher\AddChoice.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddDraw.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddJudge.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddQuestion1.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddQuestion2.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddQuestion3.aspx" />
+    <Content Include="WebPageByUserType\Teacher\AddTest.aspx" />
+    <Content Include="WebPageByUserType\Teacher\InsertStu.aspx" />
+    <Content Include="WebPageByUserType\Teacher\MakeOutQuestions.html" />
+    <Content Include="WebPageByUserType\Teacher\showTestData.aspx" />
+    <Content Include="WebPageByUserType\Teacher\showTestScore.aspx" />
     <Content Include="WebPageByUserType\Teacher\Teacher.html" />
+    <Content Include="WebPageByUserType\Teacher\TestData.aspx" />
+    <Content Include="WebPageByUserType\Teacher\UpQuestionImages\1.jpg" />
+    <Content Include="WebPageByUserType\Teacher\UpQuestionImages\u=729382916,2146689896&amp;fm=27&amp;gp=0.jpg" />
     <Content Include="XML.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -97,15 +129,46 @@
     <Compile Include="LoginRequest.ashx.cs">
       <DependentUpon>LoginRequest.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Model\ChoiceQInfo.cs" />
+    <Compile Include="Model\ExamInfo.cs" />
+    <Compile Include="Model\JudgementQInfo.cs" />
     <Compile Include="Model\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryExistSchool.ashx.cs">
+      <DependentUpon>QueryExistSchool.ashx</DependentUpon>
+    </Compile>
     <Compile Include="SQL\SQLConnect.cs" />
     <Compile Include="SQL\SQLQuery.cs" />
     <Compile Include="WebPageByUserType\Admin\AdminManage.ashx.cs">
       <DependentUpon>AdminManage.ashx</DependentUpon>
     </Compile>
+    <Compile Include="WebPageByUserType\Admin\AdminManageQuestions.ashx.cs">
+      <DependentUpon>AdminManageQuestions.ashx</DependentUpon>
+    </Compile>
     <Compile Include="WebPageByUserType\Admin\AdminQuery.ashx.cs">
       <DependentUpon>AdminQuery.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Admin\AdminQueryQuestion.ashx.cs">
+      <DependentUpon>AdminQueryQuestion.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\ExamQuestions\DrawingQuertions.aspx.cs">
+      <DependentUpon>DrawingQuertions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\ExamQuestions\DrawingQuertions.aspx.designer.cs">
+      <DependentUpon>DrawingQuertions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\PrepareExam.ashx.cs">
+      <DependentUpon>PrepareExam.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\QueryAvailableExam.ashx.cs">
+      <DependentUpon>QueryAvailableExam.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\QueryTestAnswer.ashx.cs">
+      <DependentUpon>QueryTestAnswer.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Student\SubmitAnswer.ashx.cs">
+      <DependentUpon>SubmitAnswer.ashx</DependentUpon>
     </Compile>
     <Compile Include="WebPageByUserType\SuperAdmin\SuperAdminManage.ashx.cs">
       <DependentUpon>SuperAdminManage.ashx</DependentUpon>
@@ -113,11 +176,116 @@
     <Compile Include="WebPageByUserType\SuperAdmin\SuperAdminQuery.ashx.cs">
       <DependentUpon>SuperAdminQuery.ashx</DependentUpon>
     </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddChoice.ashx.cs">
+      <DependentUpon>AddChoice.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddChoice.aspx.cs">
+      <DependentUpon>AddChoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddChoice.aspx.designer.cs">
+      <DependentUpon>AddChoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddDraw.ashx.cs">
+      <DependentUpon>AddDraw.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddDraw.aspx.cs">
+      <DependentUpon>AddDraw.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddDraw.aspx.designer.cs">
+      <DependentUpon>AddDraw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddJudge.ashx.cs">
+      <DependentUpon>AddJudge.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddJudge.aspx.cs">
+      <DependentUpon>AddJudge.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddJudge.aspx.designer.cs">
+      <DependentUpon>AddJudge.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion1.aspx.cs">
+      <DependentUpon>AddQuestion1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion1.aspx.designer.cs">
+      <DependentUpon>AddQuestion1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion2.aspx.cs">
+      <DependentUpon>AddQuestion2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion2.aspx.designer.cs">
+      <DependentUpon>AddQuestion2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion3.aspx.cs">
+      <DependentUpon>AddQuestion3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddQuestion3.aspx.designer.cs">
+      <DependentUpon>AddQuestion3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddTest.aspx.cs">
+      <DependentUpon>AddTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\AddTest.aspx.designer.cs">
+      <DependentUpon>AddTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\InsertStu.aspx.cs">
+      <DependentUpon>InsertStu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\InsertStu.aspx.designer.cs">
+      <DependentUpon>InsertStu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\ReleaseWorkOrTest.ashx.cs">
+      <DependentUpon>ReleaseWorkOrTest.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\showTestData.aspx.cs">
+      <DependentUpon>showTestData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\showTestData.aspx.designer.cs">
+      <DependentUpon>showTestData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\OpTest.ashx.cs">
+      <DependentUpon>OpTest.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\showTestScore.aspx.cs">
+      <DependentUpon>showTestScore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\showTestScore.aspx.designer.cs">
+      <DependentUpon>showTestScore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\TestData.aspx.cs">
+      <DependentUpon>TestData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\TestData.aspx.designer.cs">
+      <DependentUpon>TestData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\Testquery.ashx.cs">
+      <DependentUpon>Testquery.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPageByUserType\Teacher\updateClassTestState.ashx.cs">
+      <DependentUpon>updateClassTestState.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LoginRequest.ashx" />
     <Content Include="JudgeUserType.ashx" />
+    <Content Include="CanvasEXE\Application Files\Canvas_1_0_0_1\Canvas.application" />
+    <Content Include="CanvasEXE\Application Files\Canvas_1_0_0_1\Canvas.exe.config.deploy" />
+    <Content Include="CanvasEXE\Application Files\Canvas_1_0_0_1\Canvas.exe.deploy" />
+    <Content Include="CanvasEXE\Application Files\Canvas_1_0_0_1\Canvas.exe.manifest" />
+    <Content Include="CanvasEXE\Application Files\Canvas_1_0_0_1\CommonTools.dll.deploy" />
+    <Content Include="CanvasEXE\Canvas.application" />
     <None Include="packages.config" />
+    <Content Include="QueryExistSchool.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,8 +296,24 @@
     <Content Include="WebPageByUserType\Admin\AdminQuery.ashx" />
     <Content Include="WebPageByUserType\SuperAdmin\SuperAdminQuery.ashx" />
     <Content Include="WebPageByUserType\Admin\AdminManage.ashx" />
+    <Content Include="WebPageByUserType\Student\QueryAvailableExam.ashx" />
+    <Content Include="WebPageByUserType\Student\PrepareExam.ashx" />
+    <Content Include="WebPageByUserType\Student\SubmitAnswer.ashx" />
+    <Content Include="WebPageByUserType\Teacher\OpTest.ashx" />
+    <Content Include="WebPageByUserType\Student\QueryTestAnswer.ashx" />
+    <Content Include="WebPageByUserType\Admin\AdminManageQuestions.ashx" />
+    <Content Include="WebPageByUserType\Admin\AdminQueryQuestion.ashx" />
+    <Content Include="WebPageByUserType\Teacher\AddChoice.ashx" />
+    <Content Include="WebPageByUserType\Teacher\AddDraw.ashx" />
+    <Content Include="WebPageByUserType\Teacher\AddJudge.ashx" />
+    <Content Include="WebPageByUserType\Teacher\Testquery.ashx" />
+    <Content Include="WebPageByUserType\Teacher\ReleaseWorkOrTest.ashx" />
+    <Content Include="WebPageByUserType\Teacher\updateClassTestState.ashx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="dll\" />
+    <Folder Include="WebPageByUserType\Teacher\UpFile\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

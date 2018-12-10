@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title id="timing">开始考试</title>
+    <script type='text/javascript' src='../../js/jquery-1.7.2.min.js'></script>
+    <script type='text/javascript' src='../../js/jquery.cookie.js'></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript">
+        var examTime = sessionStorage.getItem("examTime");
+        var stuAnswerTimeStart = new Date().getTime();
+        var examName = "";
+        var examQSum = "";
+        var iframes;
+        $().ready(function() {
+            examName = decodeURI($.cookie('examName'));
+            examQSum = decodeURI($.cookie('examQSum'));
+            iframes = document.getElementsByName("_iframe");
+            for (var i = 0; i < iframes.length; i++) {
+                var tempSrc = iframes[i].src;
+                document.getElementsByName("_iframe")[i].src = tempSrc.replace("$", examName);
+            }
+            var bannerT = document.getElementById("banner")
+            bannerT.innerHTML = banner.innerText + "<div class='examName'>" + examName + "</div>";
+        })
+    </script>
+</head>
+
+<body onload="Timing(examTime)">
+    <div id="banner">
+        &nbsp;&nbsp;开始考试!&nbsp;试卷名:&nbsp;
+    </div>
+    <br>
+    <HR width="80%" color=#E4E4E4 SIZE=2>
+    <div id="exam_a">
+        <iframe class="iframe" name="_iframe" onload="reinitIframe(this)" src="ExamQuestions/$CQuestions.html"></iframe>
+        <iframe class="iframe" name="_iframe" onload="reinitIframe(this)" src="ExamQuestions/$JQuestions.html"></iframe>
+        <iframe class="iframe" name="_iframe" onload="reinitIframe(this)" src="ExamQuestions/DrawingQuertions.aspx"></iframe>
+    </div>
+    <br>
+    <div id="footer">
+        <input type="submit" class="but_add1" value="提交" onclick="Submit('stuSubmit');" />
+        <h5>Tips:仔细检查!</h5>
+    </div>
+    <div id="footer1"></div>
+    <script type="text/javascript">
+        function reinitIframe(obj) {
+            var bHeight = obj.contentWindow.document.body.scrollHeight;
+            var dHeight = obj.contentWindow.document.documentElement.scrollHeight;
+            var height = Math.max(bHeight, dHeight);
+            obj.height = height;
+        }
+
+        function Submit(submitWay) {
+            if (submitWay == "stuSubmit") {
+                if (!confirm("你确定提交吗？")) {
+                    return;
+                }
+            }
+            var stuAnswerTimeEnd = new Date().getTime();
+            var answerTime = stuAnswerTimeEnd - stuAnswerTimeStart;
+            var stuInfo = decodeURI($.cookie('stuInfo'));
+            var stuAnswer = "";
+            var tempChoice;
+            var stuAnswerCount = 0;
+            var QSum = examQSum.split("+");
+            for (var x = 0; x < 2; x++) {
+                var iframe_document = iframes[x].contentWindow.document;
+                for (var i = 0; i < QSum[x]; i++) {
+                    tempChoice = iframe_document.getElementsByName("Choice" + i);
+                    for (var j = 0; j < tempChoice.length; j++) {
+                        if (tempChoice[j].checked) {
+                            stuAnswer += tempChoice[j].id.replace("Choice", "").replace(i, "") + ",";
+                            stuAnswerCount++;
+                            break;
+                        }
+                        if (j == (tempChoice.length - 1)) {
+                            stuAnswer += "NULL" + ",";
+                        }
+                    }
+                }
+                stuAnswer += "|";
+            }
+            $.ajax({
+                type: "Post",
+                url: "SubmitAnswer.ashx",
+                dataType: "text",
+                data: {
+                    studentAnswer: stuAnswer,
+                    examName: examName,
+                    stuInfo: stuInfo,
+                    count: stuAnswerCount,
+                    time: answerTime
+                },
+                success: function() {
+                    window.location.href = "Student.html";
+                },
+                error: function() {
+                    alert("提交失败，请联系管理员处理！");
+                }
+            });
+        }
+
+        function Timing(time) {
+            if (time == "-1") {
+                document.getElementById("timing").innerHTML = "本次考试不限时长";
+                return;
+            }
+            var examTime = time;
+            document.getElementById("timing").innerHTML = "本次考试剩余时间：" + examTime + "分钟";
+            var timing = setInterval(function() {
+                examTime--;
+                document.getElementById("timing").innerHTML = "本次考试剩余时间：" + examTime + "分钟";
+                if (examTime == 0) {
+                    clearInterval(timing);
+                    alert("时间到，考试结束！");
+                    Submit(null);
+                }
+            }, 60000);
+        }
+    </script>
+</body>
+
+</html>

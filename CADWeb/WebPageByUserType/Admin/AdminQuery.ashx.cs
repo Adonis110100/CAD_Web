@@ -17,23 +17,17 @@ namespace CADWeb.WebPageByUserType.Admin
             HttpRequest request = context.Request;
             HttpResponse response = context.Response;
             SQLQuery query = new SQLQuery();
-            string handleType = request["handleType"].Trim();
+            string operation = request["operation"].Trim();
             string name = request["name"].Trim();
-            if("Add".Equals(handleType))
-            {
-
-            }
-            else if("Block".Equals(handleType))
-            {
-
-            }
+            string userType = request["userType"].Trim();
+            query.AdminOpertion(name, operation, userType);
         }
 
         public bool IsReusable
         {
             get
             {
-                return false;
+                return true;
             }
         }
     }

@@ -1,46 +1,69 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
+    <link rel="stylesheet" href="../css/style.css">
     <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../../js/custom.js"></script>
     <meta charset="utf-8" />
-    <title></title>
+    <title>管理员系统</title>
 </head>
+
 <body>
-    <form action="AdminManage.ashx" name="form" method="post">
-        <div>
-            <select id="select_Query" name="select_Query">
-                <option>教师</option>
-                <option>班级</option>
-                <option>学生</option>
-            </select>
-            名单管理
-            <input type="submit" value="开始查询" />
+    <div id="banner">&nbsp&nbsp管理员系统</div>
+    <div id="center">
+        <h2>名单管理</h2>
+        <div id="select_Menu">
+            <HR width="100%" color=#E4E4E4 SIZE=2>
+            <form action="AdminManage.ashx" name="form" method="post">
+                <span>查询名称:</span>
+                <select id="select_Query" name="select_Query" onclick="setCookie('select_Query',this.selectedIndex)">
+                    <option>教师</option>
+                    <option>班级</option>
+                    <option>学生</option>
+                </select>
+                <input type="hidden" id="defaultInput" name="defaultInput"/>
+               <input class="but_search" type="submit" value="查询" />
+            </form>
         </div>
-    </form>
-    <div>
-        <input type="text" id="inputText" placeholder="请输入姓名"/>
-        <input type="submit" value="添加" onclick="Add();" />
-        <input type="submit" value="批量添加" onclick="BatchAdd();" />
+
+        <div id="add">
+            <input type="text" class="add_type" id="inputText" placeholder="请输入姓名" />
+            <input type="submit" class="but_add1" value="添加" onclick="Add();" />
+            <input type="submit" class="but_add2" value="批量添加" onclick="BatchAdd();" />
+        </div>
     </div>
-    <table border="1" style="display:none">
-        <tr>
-            <th id="addType">
-                $col1
-            </th>
-            <th>
-                $col2
-            </th>
-        </tr>
-        <tr style="display:table-row">
-            <th>
-                $content
-            </th>
-        </tr>
-    </table>
-    <div><a href="">题库管理（批量打开与冻结）</a></div>
-    <script>
+    <div id="middle"><a href="AdminManageQuestions.ashx" class="library">题库管理（批量打开与冻结）</a></div>
+    <div id="bottom">
+        <table style="display:none">
+            <tr>
+                <th id="addType">
+                    $col1
+                </th>
+                <th>
+                    $col2
+                </th>
+                <th>$col3</th>
+            </tr>
+            <tr style="display:table-row">
+                <th>
+                    $content
+                </th>
+            </tr>
+        </table>
+    </div>
+    <div id="foot"></div>
+
+    <script type="text/javascript">
+        document.getElementById("defaultInput").value = sessionStorage.getItem("schoolName");
         function Add() {
-            var text = document.getElementById("inputText").innerText;
+            var addType = document.getElementById("addType").innerHTML.trim();
+            //下面的字符串相加是有意义的，请勿改动
+            if (addType == "$" + "col1") {
+                alert("请先进行查询操作！");
+                return;
+            }
+            var text = document.getElementById("inputText").value;
             if (text.length == 0 || text.indexOf(" ") != -1 || typeof text == "undefined" || text == null || text == "" || !text.match(/^[A-Za-z0-9\u4e00-\u9fa5]{2,10}$/)) {
                 alert('请确认您输入的值正确无误！');
                 return;
@@ -52,11 +75,14 @@
                     return;
                 }
             }
+            if (addType == "班级") {
+                text += ("|" + sessionStorage.getItem("schoolName"));
+            }
             $.ajax({
                 type: "Post",
                 url: "AdminQuery.ashx",
                 dataType: "text",
-                data: { handleType: "Add", name: text },
+                data: { operation: "Add", name: text, userType: addType },
                 success: function () {
                     alert("添加成功！");
                     document.forms["form"].submit();
@@ -73,8 +99,70 @@
         }
 
         function Block(obj) {
-
+            var num = obj.name;
+            var state = document.getElementsByName("state" + num)[0].innerHTML;
+            if (state == "已冻结") {
+                alert("您选择的账户已被冻结！请重新选择。");
+                return;
+            }
+            var name = document.getElementById("queryResult" + num).innerHTML;
+            
+            var type = document.getElementById("addType").innerHTML.trim();
+            if (type == "班级") {
+                name += "|" + sessionStorage.getItem("schoolName");
+            }
+            $.ajax({
+                type: "Post",
+                url: "AdminQuery.ashx",
+                dataType: "text",
+                data: { operation: "Block", name: name, userType: type },
+                success: function () {
+                    alert("冻结成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("冻结失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        
+        }
+        function BlockStudent(obj,stuIndex)
+        {
+            var num = obj.name;
+            var className = document.getElementById("className" + num).innerHTML;
+            var name=stuIndex;
+             var type = document.getElementById("addType").innerHTML.trim();
+        var state = document.getElementsByName("state" + num)[0].innerHTML;
+            if (state == "已冻结") {
+                alert("您选择的账户已被冻结！请重新选择。");
+                return;
+            }
+        if (type == "学生") {
+                name += "|" + sessionStorage.getItem("schoolName")+"|"+className;
+            }
+            $.ajax({
+                type: "Post",
+                url: "AdminQuery.ashx",
+                dataType: "text",
+                data: { operation: "Block", name: name, userType: type },
+                success: function () {
+                    alert("冻结成功！");
+                    document.forms["form"].submit();
+                },
+                error: function () {
+                    alert("冻结失败！请稍后重试。");
+                    document.forms["form"].submit();
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        var selectedIndex = getCookie("select_Query");
+        if (selectedIndex != null) {
+            document.getElementById("select_Query").selectedIndex = selectedIndex;
         }
     </script>
 </body>
+
 </html>
