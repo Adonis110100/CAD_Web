@@ -19,6 +19,13 @@
 
     <form id="form1" runat="server">
         <div>
+             <div class="tips" style="vertical-align: middle;text-align: center;">
+                <p>导入注意事项：</p><br />
+                <p>示例如下，依次为学号，姓名，密码，学生状态（默认为1，填1就好） </p>
+                <img src="../../image/xueshengshili.png" /><br />
+                <p>请将sheet页的页名改为学生，示例如下：</p><br />
+                将<img src="../../image/xueshengshili2.png" />改为<img src="../../image/xueshengshili3.png" /><br /><br /><br />
+                </div>
              <asp:FileUpload ID="MyFileUpload" runat="server" />
             <br/><br/>年级班级:<asp:TextBox ID="ClassName" runat="server"></asp:TextBox>
             <br/><br/><br/>

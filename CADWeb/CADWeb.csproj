@@ -79,6 +79,13 @@
   <ItemGroup>
     <Content Include="CanvasEXE\setup.exe" />
     <Content Include="css\custom.css" />
+    <Content Include="image\panduantishili1.png" />
+    <Content Include="image\panduantishili2.png" />
+    <Content Include="image\xuanzetishili1.png" />
+    <Content Include="image\xuanzetishili2.png" />
+    <Content Include="image\xueshengshili.png" />
+    <Content Include="image\xueshengshili2.png" />
+    <Content Include="image\xueshengshili3.png" />
     <Content Include="js\custom.js" />
     <Content Include="PageTransfer.html" />
     <Content Include="css\component.css" />

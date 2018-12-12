@@ -22,7 +22,15 @@
     <form id="form1" runat="server">
         
             <asp:Button ID="ChoiceToSql" runat="server" text="导入判断题" OnClick="judgeToSql_Click" />
-            <span>tip:excel导入多条判断题，不支持图片导入</span>
+         <div class="tips" style="vertical-align: middle;text-align: center;">
+                <p>导入注意事项：</p><br />
+                <p>示例如下，依次为题目,答案（正确或者错误）,答案解析,题目状态（默认为1）</p>
+                <img src="../../image/panduantishili1.png" /><br />
+                <p>请将sheet页的页名改为判断题，示例如下：</p><br />
+                将<img src="../../image/xueshengshili2.png" />改为<img src="../../image/panduantishili2.png" /><br /><br /><br />
+                <span>tip:excel导入多条选择题，不支持图片导入</span>
+                 <br />
+                </div>           
             <asp:FileUpload ID="MyFileUpload" runat="server" Visible="false" />
             <asp:Button ID="FileUploadButton" runat="server" Visible="false" Text="上传" onclick="FileUploadButton_Click" />
 
