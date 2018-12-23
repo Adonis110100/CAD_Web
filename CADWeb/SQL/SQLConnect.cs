@@ -19,7 +19,7 @@ namespace CADWeb.SQL
                 {
                     if (conn == null)
                     {
-                        conn = new SqlConnection(@"server=ADONIS\SQLEXPRESS;database=CAD-题组信息;uid=sa;pwd=123456");
+                        conn = new SqlConnection(@"server=47.104.173.249,20001\CADSYSTEM;database=CAD-题组信息;uid=sa;pwd=summercad-CAD");
                         //conn = new SqlConnection(@"server=LAPTOP-1D53QQ7K\LUMO;database=CAD-题组信息;uid=sa;pwd=123456");
                     }
                 }
