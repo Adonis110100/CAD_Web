@@ -21,6 +21,7 @@ namespace CADWeb.WebPageByUserType.Admin
             string name = request["name"].Trim();
             string userType = request["userType"].Trim();
             query.AdminOpertion(name, operation, userType);
+            response.Write(operation);
         }
 
         public bool IsReusable

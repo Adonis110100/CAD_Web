@@ -79,7 +79,6 @@ namespace CADWeb.SQL
                         continue;
                     foreach (DataRow dr in dt.Rows)
                     {
-                        Console.WriteLine("-----" + userName + " " + dr["密码"]);
                         if (userPassword.Equals(dr["密码"]))
                         {
                             string userState = dr["学生状态"].ToString();
@@ -541,24 +540,24 @@ namespace CADWeb.SQL
                             break;
                     }
                     break;
-                case "Block":
+                case "0": case "1":
                     switch (userType)
                     {
                         case "教师":
-                            ExecuteSqlNonQuery(name, "update userInfo set userState=0 where userName=@name and userType='Teacher'");
+                            ExecuteSqlNonQuery(name, "update userInfo set userState=" + operation + " where userName=@name and userType='Teacher'");
                             break;
                         case "班级":
                             string[] names = name.Split('|');
                             string className = names[0];
                             string schoolName = names[1];
-                            ExecuteSqlNonQuery(className, "update 学校班级信息 set 冻结状态=0 where 学校名='" + schoolName + "' and 年级班级=@name");
+                            ExecuteSqlNonQuery(className, "update 学校班级信息 set 冻结状态=" + operation + " where 学校名='" + schoolName + "' and 年级班级=@name");
                             break;
                         case "学生":
                             string[] Snames = name.Split('|');//"16240003|深职院|{1701}"
                             string stuNum = Snames[0];
                             string SschoolName = Snames[1];
                             string SclassName = Snames[2].TrimEnd('}').TrimStart('{');
-                            ExecuteSqlNonQuery(stuNum, "use [CAD__" + SschoolName + "] update classInfo_" + SclassName + " set 学生状态=0 where 学号=@name");
+                            ExecuteSqlNonQuery(stuNum, "use [CAD__" + SschoolName + "] update classInfo_" + SclassName + " set 学生状态=" + operation + " where 学号=@name");
                             break;
                     }
                     break;

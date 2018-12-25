@@ -22,8 +22,8 @@
                     <option>班级</option>
                     <option>学生</option>
                 </select>
-                <input type="hidden" id="defaultInput" name="defaultInput"/>
-               <input class="but_search" type="submit" value="查询" />
+                <input type="hidden" id="defaultInput" name="defaultInput" />
+                <input class="but_search" type="submit" value="查询" />
             </form>
         </div>
 
@@ -98,60 +98,72 @@
 
         }
 
-        function Block(obj) {
+        function Block_Unblock(obj, operationType) {
             var num = obj.name;
-            var state = document.getElementsByName("state" + num)[0].innerHTML;
-            if (state == "已冻结") {
-                alert("您选择的账户已被冻结！请重新选择。");
+            if (document.getElementsByName("state" + num)[0].innerHTML == operationType) {
+                alert("您所选择的是" + operationType + "状态，请重新选择！");
                 return;
             }
             var name = document.getElementById("queryResult" + num).innerHTML;
-            
             var type = document.getElementById("addType").innerHTML.trim();
             if (type == "班级") {
                 name += "|" + sessionStorage.getItem("schoolName");
             }
+            if (operationType == "已冻结") {
+                operationType = 0;
+            } else {
+                operationType = 1;
+            }
             $.ajax({
                 type: "Post",
                 url: "AdminQuery.ashx",
                 dataType: "text",
-                data: { operation: "Block", name: name, userType: type },
-                success: function () {
-                    alert("冻结成功！");
+                data: { operation: operationType, name: name, userType: type },
+                success: function (data) {
+                    if (data == 0) {
+                        alert("冻结成功！");
+                    } else {
+                        alert("解冻成功！");
+                    }
                     document.forms["form"].submit();
                 },
                 error: function () {
-                    alert("冻结失败！请稍后重试。");
+                    alert("未知的错误发生了！请联系管理员处理！");
                     document.forms["form"].submit();
                 }
             });
-        
+
         }
-        function BlockStudent(obj,stuIndex)
-        {
-            var num = obj.name;
-            var className = document.getElementById("className" + num).innerHTML;
-            var name=stuIndex;
-             var type = document.getElementById("addType").innerHTML.trim();
-        var state = document.getElementsByName("state" + num)[0].innerHTML;
-            if (state == "已冻结") {
-                alert("您选择的账户已被冻结！请重新选择。");
+
+        function Block_UnblockStudent(obj, classIndex, stuIndex, operationType) {
+            if (document.getElementsByName("state" + obj.name)[0].innerHTML == operationType) {
+                alert("您选择的账户是" + operationType + "状态，请重新选择！");
                 return;
             }
-        if (type == "学生") {
-                name += "|" + sessionStorage.getItem("schoolName")+"|"+className;
+            var className = document.getElementById("className" + classIndex).innerHTML;
+            var name = stuIndex;
+            var type = document.getElementById("addType").innerHTML.trim();
+            name += "|" + sessionStorage.getItem("schoolName") + "|" + className;
+            if (operationType == "已冻结") {
+                operationType = 0;
+            } else {
+                operationType = 1;
             }
             $.ajax({
                 type: "Post",
                 url: "AdminQuery.ashx",
                 dataType: "text",
-                data: { operation: "Block", name: name, userType: type },
-                success: function () {
-                    alert("冻结成功！");
+                data: { operation: operationType, name: name, userType: type },
+                success: function (data) {
+                    if (data == 0) {
+                        alert("冻结成功！");
+                    } else {
+                        alert("解冻成功！");
+                    }
                     document.forms["form"].submit();
                 },
                 error: function () {
-                    alert("冻结失败！请稍后重试。");
+                    alert("未知的错误发生了！请联系管理员处理！");
                     document.forms["form"].submit();
                 }
             });
