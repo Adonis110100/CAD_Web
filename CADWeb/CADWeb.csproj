@@ -278,8 +278,8 @@
     <Compile Include="WebPageByUserType\Teacher\Testquery.ashx.cs">
       <DependentUpon>Testquery.ashx</DependentUpon>
     </Compile>
-    <Compile Include="WebPageByUserType\Teacher\updateClassTestState.ashx.cs">
-      <DependentUpon>updateClassTestState.ashx</DependentUpon>
+    <Compile Include="WebPageByUserType\Teacher\UpdateExamState.ashx.cs">
+      <DependentUpon>UpdateExamState.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -315,7 +315,7 @@
     <Content Include="WebPageByUserType\Teacher\AddJudge.ashx" />
     <Content Include="WebPageByUserType\Teacher\Testquery.ashx" />
     <Content Include="WebPageByUserType\Teacher\ReleaseWorkOrTest.ashx" />
-    <Content Include="WebPageByUserType\Teacher\updateClassTestState.ashx" />
+    <Content Include="WebPageByUserType\Teacher\UpdateExamState.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dll\" />

@@ -7,9 +7,9 @@
     <title>考试结果</title>
     <script type='text/javascript' src="../../js/jquery-1.7.2.min.js"></script>
     <script type='text/javascript' src='../../js/jquery.cookie.js'></script>
-    <link rel="stylesheet" href="../css/style.css">
+    <script type='text/javascript' src="../../js/custom.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/style.css">
     <style>
-
     </style>
 </head>
 
@@ -62,13 +62,6 @@
         })
     </script>
     <script type="text/javascript">
-        function ReinitIframe(obj) {
-            let bHeight = obj.contentWindow.document.body.scrollHeight;
-            let dHeight = obj.contentWindow.document.documentElement.scrollHeight;
-            let height = Math.max(bHeight, dHeight);
-            obj.height = height;
-        }
-
         function Back() {
             window.location.href = "QueryTestAnswer.ashx";
         }

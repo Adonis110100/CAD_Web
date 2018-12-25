@@ -2,13 +2,13 @@
 
 function getClassScoreTable(obj) {
    
-    var ddl = obj.getElementById("DropDownList1")
+    var ddl = obj.getElementById("DropDownList1");
     var index = ddl.selectedIndex;
 
     var Value = ddl.options[index].value;
     var Text = ddl.options[index].text;
-    document.cookie = "gradeClassName=" + Text
-    sessionStorage.setItem["class"]=Text
+    document.cookie = "gradeClassName=" + Text;
+    sessionStorage.setItem["class"] = Text;
 
 }
 
@@ -44,7 +44,7 @@ function BeginExam() {
         alert("请先选择你要参加的考试！");
         return;
     }
-    if (examTime == "不限时长") {
+    if (examTime === "不限时长") {
         examTime = "-1";
     } else {
         examTime = examTime.replace("分钟", "");
@@ -93,7 +93,7 @@ function BeginQueryAnswer(temp) {
 
 function BlockOrUnblock(obj, type) {
     var index = obj.name;
-    if (document.getElementById("state" + index).innerHTML == type) {
+    if (document.getElementById("state" + index).innerHTML === type) {
         alert("您选择的题目是" + type + "状态，请重新选择！");
         return;
     }
@@ -106,9 +106,9 @@ function BlockOrUnblock(obj, type) {
         dataType: "text",
         data: { questionName: questionName, operationType: type, questionType: questionType },
         success: function (data) {
-            if (data == 1) {
+            if (data === 1) {
                 alert("解冻成功！");
-            }else if (data == 0) {
+            }else if (data === 0) {
                 alert("冻结成功！");
             }
             window.location.href = "";
@@ -120,20 +120,62 @@ function BlockOrUnblock(obj, type) {
     });
 }
 
-function updateTestState(obj) {
-
-    let len = document.getElementsByName("exam").length;
-    let selectid = "";  //  selectvalue为radio中选中的值
-    for (let i = 0; i < len; i++) {
-        if (document.getElementsByName("exam")[i].checked) {
-            selectid = document.getElementsByName("exam")[i].id;
+function Release() {
+    var inputText = document.getElementById("inputClass").value;
+    if (inputText === "") {
+        alert("请先输入您要发布的班级！");
+        return;
+    }
+    if (!confirm("请确认您输入的班级正确无误：" + inputText)) {
+        return;
+    }
+    var className = "";
+    var examName = "";
+    var examState = "";
+    var isChecked = false;
+    var exams = document.getElementsByName("exam");
+    for (var i = 0; i < exams.length; i++) {
+        if (exams[i].checked) {
+            examState = document.getElementById("examState_" + exams[i].id).innerHTML;
+            if (examState.indexOf(inputText) !== -1) {
+                alert("您输入的班级已发布过，请确认！");
+                return;
+            }
+            if (examState === "") {
+                className = inputText + "，";
+            } else {
+                className = examState + "，" + inputText + "，";
+            }
+            examName = document.getElementById("exam_" + exams[i].id).innerHTML;
+            isChecked = true;
+            break;
         }
     }
-    //sessionStorage.setItem("testName",obj.getElementById("exam_" + selectid).Value)
-    //sessionStorage.setItem("classString", obj.getElementById("examState_" + selectid).Value)
-    let testName = document.getElementById("exam_" + selectid).innerHTML
-    let classString = document.getElementById("examState_" + selectid).innerHTML
-    let addClassString = document.getElementById("inputClass").value
-    //alert("fuck");
-    window.location.href = 'updateClassTestState.ashx?testName=' + testName + '&classString=' + classString + '&addClassString=' + addClassString;
+    if (!isChecked) {
+        alert("请先选择要发布的试卷");
+        return;
+    }
+    console.log(examName);
+    console.log(className);
+    $.ajax({
+        type: "Post",
+        url: "UpdateExamState.ashx",
+        dataType: "text",
+        data: { examName: examName, className: className },
+        success: function () {
+            alert("发布成功");
+            window.location.href = "";
+        },
+        error: function () {
+            alert("未知的错误发生了！请联系管理员处理！");
+            return;
+        }
+    });
+}
+
+function ReinitIframe(obj) {
+    let bHeight = obj.contentWindow.document.body.scrollHeight;
+    let dHeight = obj.contentWindow.document.documentElement.scrollHeight;
+    let height = Math.max(bHeight, dHeight);
+    obj.height = height;
 }

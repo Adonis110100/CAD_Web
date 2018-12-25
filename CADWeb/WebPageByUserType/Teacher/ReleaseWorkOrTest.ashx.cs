@@ -31,7 +31,7 @@ namespace CADWeb.WebPageByUserType.Teacher
             {
                 html += string.Format("<tr><td id='exam_{3}'>{0}</td><td>{1}</td><td id='examState_{3}'>{2}</td><td style='width:50px;'><input style='width:50px; 'type='radio' id='{3}' name='exam' /></td></tr>", exams[i].ExamName, exams[i].ExamType, exams[i].ExamState.Replace('|', '，'), i);
             }
-            html += "</table></div><br><br><button class='but_search'value='select' onclick='updateTestState(this);'>发布</button></div><div id='foot'></div>";
+            html += "</table></div><br><br><button value='select' onclick='Release();'>发布</button></div><div id='foot'></div>";
             response.Write(html);
         }
 

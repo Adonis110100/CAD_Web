@@ -6,6 +6,7 @@
     <title id="timing">开始考试</title>
     <script type='text/javascript' src='../../js/jquery-1.7.2.min.js'></script>
     <script type='text/javascript' src='../../js/jquery.cookie.js'></script>
+    <script type='text/javascript' src="../../js/custom.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <script type="text/javascript">
         var examTime = sessionStorage.getItem("examTime");
@@ -13,7 +14,7 @@
         var examName = "";
         var examQSum = "";
         var iframes;
-        $().ready(function() {
+        $().ready(function () {
             examName = decodeURI($.cookie('examName'));
             examQSum = decodeURI($.cookie('examQSum'));
             iframes = document.getElementsByName("_iframe");
@@ -45,13 +46,6 @@
     </div>
     <div id="footer1"></div>
     <script type="text/javascript">
-        function reinitIframe(obj) {
-            var bHeight = obj.contentWindow.document.body.scrollHeight;
-            var dHeight = obj.contentWindow.document.documentElement.scrollHeight;
-            var height = Math.max(bHeight, dHeight);
-            obj.height = height;
-        }
-
         function Submit(submitWay) {
             if (submitWay == "stuSubmit") {
                 if (!confirm("你确定提交吗？")) {
