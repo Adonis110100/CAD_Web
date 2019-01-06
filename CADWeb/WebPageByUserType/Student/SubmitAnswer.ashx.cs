@@ -22,7 +22,8 @@ namespace CADWeb.WebPageByUserType.Student
             string[] stuInfo = request["stuInfo"].ToString().Split('|');
             int count = Convert.ToInt32(request["count"]);
             long time = Convert.ToInt64(request["time"]);
-            query.InsertStudentTestScore(stuInfo[4],examName, stuInfo[0], stuInfo[1], stuInfo[2], stuAnswer[0].TrimEnd(','), stuAnswer[1].TrimEnd(',').Replace("True","正确").Replace("False", "错误"), time, count);
+            query.InsertStudentTestScore(stuInfo[4],examName, stuInfo[0], stuInfo[1], stuInfo[2], stuAnswer[0].TrimEnd(','),
+                stuAnswer[1].TrimEnd(',').Replace("True","正确").Replace("False", "错误"), time, count);
             query.UpdateAnswerStateInClass(stuInfo[4],stuInfo[2], examName, stuInfo[1]);
         }
 

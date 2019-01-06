@@ -44,7 +44,11 @@ namespace CADWeb
 
                 response.Write("<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>");
                 response.Write("<script type='text/javascript' src='js/jquery.cookie.js'></script>");
-                response.Write("<script type='text/javascript'> $.cookie('School', '" + school + "'); $.cookie('UserName','" + newUserName + "');$.cookie('UserID','" + userName + "');$.cookie('gradeClass','" + gradeClass+"');</script>");//alert('成功进入！'); 
+                response.Write(
+                    "<script type='text/javascript'> " +
+                        "$.cookie('School', '" + school + "'); $.cookie('UserName','" + newUserName + "');" +
+                        "$.cookie('UserID','" + userName + "');$.cookie('gradeClass','" + gradeClass+"');" +
+                    "</script>");//alert('成功进入！'); 
                 response.Flush();
                 //判断用户类型跳转至功能不同的系统
                 JudgeUserType judgeUserType = new JudgeUserType(userInfo);

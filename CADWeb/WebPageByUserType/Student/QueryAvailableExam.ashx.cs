@@ -40,7 +40,13 @@ namespace CADWeb.WebPageByUserType.Student
             response.Write("<div id=\"banner\">&nbsp;&nbsp;选择试题</div>");
             response.Write("<div id=\"center\"><br>");
             response.Write("<HR width=\"100%\" color=#E4E4E4 SIZE=2>");
-            string html = "<h2>请选择试题</h2><table border='1'><tr><th style='width:50px'>试题名称</th><th>考试时长</th></tr>";
+            string html = 
+                "<h2>请选择试题</h2>" +
+                "<table border='1'>" +
+                    "<tr>" +
+                        "<th style='width:50px'>试题名称</th>" +
+                        "<th>考试时长</th>" +
+                    "</tr>";
             foreach (string key in examDic.Keys)
             {
                 string[] keys = key.Split('|');
@@ -51,7 +57,13 @@ namespace CADWeb.WebPageByUserType.Student
                 }
                 if (examDic[key].Contains(className))
                 {
-                    html += string.Format("<tr><td><label for='exam_{0}'><input style='width:50px' type='radio' id='exam_{0}' name='exam' />{0}</label></td><td id='time_{0}'>{1}</td></tr>", keys[0], keys[1]);
+                    html += string.Format(
+                        "<tr>" +
+                            "<td>" +
+                                "<label for='exam_{0}'><input style='width:50px' type='radio' id='exam_{0}' name='exam' />{0}</label>" +
+                            "</td>" +
+                            "<td id='time_{0}'>{1}</td>" +
+                        "</tr>", keys[0], keys[1]);
                 }
             }
             html += "</table><br><br><div><input type='submit' class='but_search' value='开始考试' onclick='BeginExam();'/></div></div><div id='foot'></div>";

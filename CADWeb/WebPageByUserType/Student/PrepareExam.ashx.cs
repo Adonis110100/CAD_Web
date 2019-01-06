@@ -34,8 +34,22 @@ namespace CADWeb.WebPageByUserType.Student
             for (; i < choiceQInfos.Count; i++)
             {
                 questionIndex++;
-                contentC += string.Format("<div><div>{0}、 {1}<div name='QuestionPic' style='display: none'>{2}</div></div><div><label for='ChoiceA{9}'><input type='radio' id='ChoiceA{9}' name='Choice{9}' /> A、 {3}</label></div><div><label for='ChoiceB{9}'><input type='radio' id='ChoiceB{9}' name='Choice{9}' /> B、 {4}</label></div><div><label for='ChoiceC{9}'><input type='radio' id='ChoiceC{9}' name='Choice{9}' /> C、 {5}</label></div><div><label for='ChoiceD{9}'><input type='radio' id='ChoiceD{9}' name='Choice{9}' /> D、 {6}</label></div><div name='Answer' style='display: none'><div>正确答案： {7}</div><div>解析： {8}</div></div></div>",
-                    questionIndex, choiceQInfos[i].QuestionInfo, choiceQInfos[i].Picture_Src, choiceQInfos[i].ChoiceA, choiceQInfos[i].ChoiceB, choiceQInfos[i].ChoiceC, choiceQInfos[i].ChoiceD, choiceQInfos[i].AnswerIs, choiceQInfos[i].AnswerInfo, i);
+                contentC += string.Format(
+                    "<div>" +
+                        "<div>{0}、 {1}" +
+                            "<div name='QuestionPic' style='display: none'>{2}</div>" +
+                        "</div>" +
+                        "<div><label for='ChoiceA{9}'><input type='radio' id='ChoiceA{9}' name='Choice{9}' /> A、 {3}</label></div>" +
+                        "<div><label for='ChoiceB{9}'><input type='radio' id='ChoiceB{9}' name='Choice{9}' /> B、 {4}</label></div>" +
+                        "<div><label for='ChoiceC{9}'><input type='radio' id='ChoiceC{9}' name='Choice{9}' /> C、 {5}</label></div>" +
+                        "<div><label for='ChoiceD{9}'><input type='radio' id='ChoiceD{9}' name='Choice{9}' /> D、 {6}</label></div>" +
+                        "<div name='Answer' style='display: none'>" +
+                            "<div>正确答案： {7}</div>" +
+                            "<div>解析： {8}</div>" +
+                        "</div>" +
+                    "</div>",
+                    questionIndex, choiceQInfos[i].QuestionInfo, choiceQInfos[i].Picture_Src, choiceQInfos[i].ChoiceA, choiceQInfos[i].ChoiceB,
+                    choiceQInfos[i].ChoiceC, choiceQInfos[i].ChoiceD, choiceQInfos[i].AnswerIs, choiceQInfos[i].AnswerInfo, i);
             }
             htmlC = htmlC.Replace("$Templet", contentC);
             string pathC = baseDirectory + @"WebPageByUserType\Student\ExamQuestions\" + examInfo.ExamName + "CQuestions.html";
@@ -54,7 +68,17 @@ namespace CADWeb.WebPageByUserType.Student
             for (; j < judgementQInfos.Count; j++)
             {
                 questionIndex++;
-                contentJ += string.Format("<div><div>{0}、 {1}<div name='QuestionPic' style='display: none'>{2} </div></div><div><label for='ChoiceTrue{5}'><input type='radio' id='ChoiceTrue{5}' name='Choice{5}' /> 正确</label></div><div><label for='ChoiceFalse{5}'><input type='radio' id='ChoiceFalse{5}' name='Choice{5}' /> 错误</label></div><div name='Answer' style='display: none'><div>正确答案： {3}</div><div>解析： {4}</div></div></div>",
+                contentJ += string.Format(
+                    "<div>" +
+                        "<div>{0}、 {1}" +
+                            "<div name='QuestionPic' style='display: none'>{2} </div>" +
+                        "</div>" +
+                        "<div><label for='ChoiceTrue{5}'><input type='radio' id='ChoiceTrue{5}' name='Choice{5}' /> 正确</label></div>" +
+                        "<div><label for='ChoiceFalse{5}'><input type='radio' id='ChoiceFalse{5}' name='Choice{5}' /> 错误</label></div>" +
+                        "<div name='Answer' style='display: none'>" +
+                            "<div>正确答案： {3}</div><div>解析： {4}</div>" +
+                        "</div>" +
+                    "</div>",
                     questionIndex, judgementQInfos[j].QuestionInfo, judgementQInfos[j].Picture_Src, judgementQInfos[j].AnswerIs, judgementQInfos[j].AnswerInfo, j);
             }
             htmlJ = htmlJ.Replace("$Templet", contentJ);

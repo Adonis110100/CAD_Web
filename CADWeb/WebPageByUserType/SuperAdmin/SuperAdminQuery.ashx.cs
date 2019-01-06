@@ -25,7 +25,7 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                 {
                     string testName = context.Request["testName"];
                     testName = HttpUtility.HtmlDecode(testName).TrimStart('{').TrimEnd('}');
-                    query.DeleteTestScoreData(name, "use [CAD__"+school+"] delete from testScore_" + testName + " where 学号=@name");
+                    query.DeleteTestScoreData(name, "use [CAD__" + school + "] delete from testScore_" + testName + " where 学号=@name");
                 }
                 else if (queryType.Equals("BatchDelete"))
                 {
@@ -35,11 +35,11 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                     foreach (string temp in delArray)
                     {
                         delObject = temp.Split(':');
-                        query.DeleteTestScoreData(delObject[1], "use [CAD__"+school+"] delete from testScore_" + delObject[0].TrimStart('{').TrimEnd('}') + " where 学号=@name");
+                        query.DeleteTestScoreData(delObject[1], "use [CAD__" + school + "] delete from testScore_" + delObject[0].TrimStart('{').TrimEnd('}') + " where 学号=@name");
                     }
                 }
             }
-            else if(type.Equals("学生"))
+            else if (type.Equals("学生"))
             {
                 if (queryType.Equals("Delete"))
                 {
@@ -72,16 +72,17 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         }
                         break;
                     case "Block":
+                    case "Unblock":
                         if (type.Equals("学校名"))
                             query.SchoolManage(name, queryType, type);
                         else
-                        query.SuperAdminOperation(name, queryType, type);
+                            query.SuperAdminOperation(name, queryType, type);
                         break;
                     case "Delete":
                         if (type.Equals("学校名"))
                             query.SchoolManage(name, queryType, type);
                         else
-                        query.SuperAdminOperation(name, queryType, type);
+                            query.SuperAdminOperation(name, queryType, type);
                         break;
                     case "BatchDelete":
                         string[] deleteStr = name.TrimEnd('|').Split('|');

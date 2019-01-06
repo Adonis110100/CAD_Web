@@ -40,7 +40,12 @@ namespace CADWeb.WebPageByUserType.Student
             response.Write("<div id=\"center\"><br>");
             response.Write("<HR width=\"100%\" color=#E4E4E4 SIZE=2>");
             
-            string html = "<h2>请选择你要查询的试题</h2><table border='1'><tr><th>试题名称</th></tr>";
+            string html = 
+                "<h2>请选择你要查询的试题</h2>" +
+                "<table border='1'>" +
+                "<tr>" +
+                "<th>试题名称</th>" +
+                "</tr>";
             string allAnswer = "";
             for (int i = 0; i < stuAnswerStateArray.Length; i++)
             {
@@ -48,7 +53,14 @@ namespace CADWeb.WebPageByUserType.Student
                 if (!string.IsNullOrEmpty(queryResult))
                 {
                     allAnswer += queryResult + "&";
-                    html += "<tr><td><label for='exam_" + stuAnswerStateArray[i] + "'><input style='width:50px' type='radio' id='exam_" + stuAnswerStateArray[i] + "' name='exam' />" + stuAnswerStateArray[i] + "</label></td></tr>";
+                    html += 
+                        "<tr>" +
+                            "<td>" +
+                                "<label for='exam_" + stuAnswerStateArray[i] + "'>" +
+                                    "<input style='width:50px' type='radio' id='exam_" + stuAnswerStateArray[i] + "' name='exam' />" + stuAnswerStateArray[i] + "" +
+                                "</label>" +
+                            "</td>" +
+                        "</tr>";
                 }
             }
 

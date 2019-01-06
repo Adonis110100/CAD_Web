@@ -132,15 +132,26 @@ namespace CADWeb.SQL
             conn.Open();
             string sql = "";
             if (queryType.Equals("Add"))
+            {
                 sql = "insert into 学校信息 (学校名,学校冻结状态)values(@name,1) " +
                 "if exists (select * from sys.databases where name = 'CAD__" + name + "')" +
                 "return " +
                 "create database [CAD__" + name + "]";
-            if (queryType.Equals("Delete"))
+            }
+            else if (queryType.Equals("Delete"))
+            {
                 sql = "delete  from 学校信息 where 学校名=@name " +
                     "drop database [CAD__" + name + "] ";
-            if (queryType.Equals("Block"))
+            }
+            else if (queryType.Equals("Block"))
+            {
                 sql = "update 学校信息 set 学校冻结状态=0 where 学校名=@name";
+            }
+            else if (queryType.Equals("Unblock"))
+            {
+                sql = "update 学校信息 set 学校冻结状态=1 where 学校名=@name";
+            }
+
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@name", name);
             try
@@ -458,6 +469,9 @@ namespace CADWeb.SQL
                 case "Block":
                     ExecuteSqlNonQuery(name, "update userInfo set userState=0 where userName=@name");
                     break;
+                case "Unblock":
+                    ExecuteSqlNonQuery(name, "update userInfo set userState=1 where userName=@name");
+                    break;
                 case "Delete":
                     switch (type)
                     {
@@ -540,7 +554,8 @@ namespace CADWeb.SQL
                             break;
                     }
                     break;
-                case "0": case "1":
+                case "0":
+                case "1":
                     switch (userType)
                     {
                         case "教师":

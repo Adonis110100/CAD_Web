@@ -24,16 +24,16 @@ namespace CADWeb.WebPageByUserType.Admin
             string html = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"WebPageByUserType\Admin\Admin.html");
             string content = "";
             string queryType = request.Form["select_Query"].Trim();
-            switch(queryType)
+            switch (queryType)
             {
                 case "教师":
-                    queryList = query.UserQuery(3,school) as List<UserInfo>;
+                    queryList = query.UserQuery(3, school) as List<UserInfo>;
                     break;
                 case "班级":
                     queryList = query.QueryClassInfo(request.Form["defaultInput"].ToString());
                     break;
                 case "学生":
-                    queryList = query.UserQuery(4,school) as List<UserInfo>;
+                    queryList = query.UserQuery(4, school) as List<UserInfo>;
                     break;
             }
             string userState = "";
@@ -51,7 +51,13 @@ namespace CADWeb.WebPageByUserType.Admin
                     {
                         userState = "正常";
                     }
-                    content += string.Format("<tr><td id='queryResult{0}' name='queryResult{0}'>{1}</td><td name='state{0}'>{2}</td><td><button value='select' name='{0}' onclick='Block_Unblock(this,\"已冻结\");'>冻结</button></td><td><button value='select' name='{0}' onclick='Block_Unblock(this,\"正常\");'>解冻</button></td></tr>", i, queryList[i].UserName, userState);
+                    content += string.Format(
+                        "<tr>" +
+                            "<td id='queryResult{0}' name='queryResult{0}'>{1}</td>" +
+                            "<td name='state{0}'>{2}</td>" +
+                            "<td><button value='select' name='{0}' onclick='Block_Unblock(this,\"已冻结\");'>冻结</button></td>" +
+                            "<td><button value='select' name='{0}' onclick='Block_Unblock(this,\"正常\");'>解冻</button></td>" +
+                        "</tr>", i, queryList[i].UserName, userState);
                     continue;
                 }
                 else
@@ -72,13 +78,26 @@ namespace CADWeb.WebPageByUserType.Admin
                         {
                             userState = "正常";
                         }
-                        content += string.Format("<tr><td id='queryResult{2}' name='queryResult{3}'>{0}</td><td>{4}</td><td name='state{2}'>{1}</td><td><button value='select' name='{2}' onclick='Block_UnblockStudent(this, {3}, \"{4}\", \"已冻结\");'>冻结</button></td><td><button value='select' name='{2}' onclick='Block_UnblockStudent(this, {3}, \"{4}\", \"正常\");'>解冻</button></td></tr>", queryList[i].UserName, userState, y, x, queryList[i].UserPassword);
+                        content += string.Format(
+                            "<tr>" +
+                                "<td id='queryResult{2}' name='queryResult{3}'>{0}</td>" +
+                                "<td>{4}</td>" +
+                                "<td name='state{2}'>{1}</td>" +
+                                "<td><button value='select' name='{2}' onclick='Block_UnblockStudent(this, {3}, \"{4}\", \"已冻结\");'>冻结</button></td>" +
+                                "<td><button value='select' name='{2}' onclick='Block_UnblockStudent(this, {3}, \"{4}\", \"正常\");'>解冻</button></td>" +
+                            "</tr>", queryList[i].UserName, userState, y, x, queryList[i].UserPassword);
                         y++;
                     }
                 }
             }
-            if(queryType.Equals("学生"))html = html.Replace("$col1", queryType).Replace("$col3", "冻结状态").Replace("$col2","学号").Replace("$content", content).Replace("style=\"display:none\"", "style=\"display:table\"").Replace("style=\"display:table-row\"", "style=\"display:none\"");
-            else html = html.Replace("$col1", queryType).Replace("$col2", "冻结状态").Replace("<th>$col3</th>", "").Replace("$content", content).Replace("style=\"display:none\"", "style=\"display:table\"").Replace("style=\"display:table-row\"", "style=\"display:none\"");
+            if (queryType.Equals("学生"))
+                html = html.Replace("$col1", queryType).Replace("$col3", "冻结状态").Replace("$col2", "学号")
+                    .Replace("$content", content).Replace("style=\"display:none\"", "style=\"display:table\"")
+                    .Replace("style=\"display:table-row\"", "style=\"display:none\"");
+            else
+                html = html.Replace("$col1", queryType).Replace("$col2", "冻结状态").Replace("<th>$col3</th>", "")
+                    .Replace("$content", content).Replace("style=\"display:none\"", "style=\"display:table\"")
+                    .Replace("style=\"display:table-row\"", "style=\"display:none\"");
             response.Write(html);
         }
 

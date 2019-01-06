@@ -16,8 +16,8 @@
         <HR width="100%" color=#E4E4E4 SIZE=2>
         <form action="SuperAdminManage.ashx" name="form" method="post">
             <select id="select_Query" name="select_Query" onclick="setCookie('select_Query',this.selectedIndex)">
-                <option>学校名添加、冻结、删除</option>
-                <option>管理员添加、冻结、删除</option>
+                <option>学校名添加、冻结、解冻、删除</option>
+                <option>管理员添加、冻结、解冻、删除</option>
                 <option>教师删除</option>
                 <option>学生批量删除</option>
                 <option>题库批量删除</option>
@@ -28,7 +28,7 @@
     </div>
     <div id="middle">
         <div class="mid_1" style="display:none">$input</div>
-       
+
         <table border="1" style="display:none">
             <caption id="add_Title">$title</caption>
             <th>
@@ -65,7 +65,11 @@
                 type: "Post",
                 url: "SuperAdminQuery.ashx",
                 dataType: "text",
-                data: { queryType: "Add", name: intxt, type: document.getElementById("add_Title").innerHTML },
+                data: {
+                    queryType: "Add",
+                    name: intxt,
+                    type: document.getElementById("add_Title").innerHTML
+                },
                 success: function () {
                     alert("添加成功！");
                     document.forms["form"].submit();
@@ -77,24 +81,36 @@
             });
         }
 
-        function Block(obj) {
+        function BlockOrUnblock_SuperAdmin(obj, operationType) {
             var num = obj.name;
-            var state = document.getElementsByName("state" + num)[0].innerHTML;
-            if (state == "已冻结") {
-                alert("您选择的账户已被冻结！请重新选择。");
+            if (document.getElementsByName("state" + num)[0].innerHTML == operationType) {
+                alert("您所选择的是" + operationType + "状态，请重新选择！");
                 return;
+            }
+            if (operationType == "正常") {
+                operationType = "Unblock";
+            } else if (operationType == "已冻结") {
+                operationType = "Block";
             }
             $.ajax({
                 type: "Post",
                 url: "SuperAdminQuery.ashx",
                 dataType: "text",
-                data: { queryType: "Block", name: document.getElementsByName("queryResult" + num)[0].innerHTML, type: document.getElementById("add_Title").innerHTML },
+                data: {
+                    queryType: operationType,
+                    name: document.getElementsByName("queryResult" + num)[0].innerHTML,
+                    type: document.getElementById("add_Title").innerHTML,
+                },
                 success: function () {
-                    alert("冻结成功！");
+                    if (operationType == "Unblock") {
+                        alert("解冻成功！");
+                    } else if (operationType == "Block") {
+                        alert("冻结成功！");
+                    }
                     document.forms["form"].submit();
                 },
                 error: function () {
-                    alert("冻结失败！请稍后重试。");
+                    alert("未知的错误发生了！请联系管理员处理！");
                     document.forms["form"].submit();
                 }
             });
@@ -109,7 +125,12 @@
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "Delete", name: stuNum, testName: testName, type: type },
+                    data: {
+                        queryType: "Delete",
+                        name: stuNum,
+                        testName: testName,
+                        type: type
+                    },
                     success: function () {
                         alert("删除成功！");
                         document.forms["form"].submit();
@@ -120,15 +141,19 @@
                     }
                 });
             }
-        else if(type=="学生")
-        {
-            var stuNum = document.getElementById("queryResult" + index).innerHTML;
+            else if (type == "学生") {
+                var stuNum = document.getElementById("queryResult" + index).innerHTML;
                 var className = document.getElementById("className_" + num).innerHTML;
                 $.ajax({
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "Delete", name: stuNum, className: className, type: type },
+                    data: {
+                        queryType: "Delete",
+                        name: stuNum,
+                        className: className,
+                        type: type
+                    },
                     success: function () {
                         alert("删除成功！");
                         document.forms["form"].submit();
@@ -138,13 +163,17 @@
                         document.forms["form"].submit();
                     }
                 });
-        }
+            }
             else {
                 $.ajax({
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "Delete", name: document.getElementsByName("queryResult" + num)[0].innerHTML, type: type },
+                    data: {
+                        queryType: "Delete",
+                        name: document.getElementsByName("queryResult" + num)[0].innerHTML,
+                        type: type
+                    },
                     success: function () {
                         alert("删除成功！");
                         document.forms["form"].submit();
@@ -177,7 +206,11 @@
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "BatchDelete", name: delStr, type: type },
+                    data: {
+                        queryType: "BatchDelete",
+                        name: delStr,
+                        type: type
+                    },
                     success: function () {
                         alert("批量删除成功！");
                         document.forms["form"].submit();
@@ -188,9 +221,8 @@
                     }
                 });
             }
-         else if(type=="学生")
-        {
-            for (var i = 0; i < cheakBoxList.length; i++) {
+            else if (type == "学生") {
+                for (var i = 0; i < cheakBoxList.length; i++) {
                     if (cheakBoxList[i].checked) {
                         var delTarget = document.getElementById("queryResult" + i);
                         var stuNum = delTarget.innerHTML;
@@ -206,7 +238,11 @@
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "BatchDelete", name: delStr, type: type },
+                    data: {
+                        queryType: "BatchDelete",
+                        name: delStr,
+                        type: type
+                    },
                     success: function () {
                         alert("批量删除成功！");
                         document.forms["form"].submit();
@@ -216,7 +252,7 @@
                         document.forms["form"].submit();
                     }
                 });
-        }
+            }
             else {
                 for (var i = 0; i < cheakBoxList.length; i++) {
                     if (cheakBoxList[i].checked) {
@@ -231,7 +267,11 @@
                     type: "Post",
                     url: "SuperAdminQuery.ashx",
                     dataType: "text",
-                    data: { queryType: "BatchDelete", name: delStr, type: type },
+                    data: {
+                        queryType: "BatchDelete",
+                        name: delStr,
+                        type: type
+                    },
                     success: function () {
                         alert("批量删除成功！");
                         document.forms["form"].submit();

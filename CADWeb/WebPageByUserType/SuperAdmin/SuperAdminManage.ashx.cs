@@ -30,11 +30,11 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
             string serialNum = request.Form["select_Query"].ToString();
             switch (serialNum)
             {
-                case "学校名添加、冻结、删除":
+                case "学校名添加、冻结、解冻、删除":
                     displayStr = "学校名";
                     queryListUserInfo = query.UserQuery(1,school) as List<UserInfo>;
                     break;
-                case "管理员添加、冻结、删除":
+                case "管理员添加、冻结、解冻、删除":
                     displayStr = "管理员";
                     queryListUserInfo = query.UserQuery(2,school) as List<UserInfo>;
                     break;
@@ -70,7 +70,14 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         {
                             userState = "正常";
                         }
-                        content += string.Format("<tr><td id='queryResult' name='queryResult" + i + "'>{0}</td><td name='state" + i + "'>{1}</td><td><button value='select' name='" + i + "' onclick='Block(this);'>冻结</button></td><td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td></tr>", queryListUserInfo[i].School, userState);
+                        content += string.Format(
+                            "<tr>" +
+                                "<td id='queryResult' name='queryResult" + i + "'>{0}</td>" +
+                                "<td name='state" + i + "'>{1}</td>" +
+                                "<td><button value='select' name='" + i + "' onclick='BlockOrUnblock_SuperAdmin(this, \"已冻结\");'>冻结</button></td>" +
+                                "<td><button value='select' name='" + i + "' onclick='BlockOrUnblock_SuperAdmin(this, \"正常\");'>解冻</button></td>" +
+                                "<td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td>" +
+                            "</tr>", queryListUserInfo[i].School, userState);
                     }
                 }
                 else
@@ -85,7 +92,14 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         {
                             userState = "正常";
                         }
-                        content += string.Format("<tr><td id='queryResult' name='queryResult" + i + "'>{0}</td><td name='state" + i + "'>{1}</td><td><button value='select' name='" + i + "' onclick='Block(this);'>冻结</button></td><td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td></tr>", queryListUserInfo[i].UserName, userState);
+                        content += string.Format(
+                            "<tr>" +
+                                "<td id='queryResult' name='queryResult" + i + "'>{0}</td>" +
+                                "<td name='state" + i + "'>{1}</td>" +
+                                "<td><button value='select' name='" + i + "' onclick='BlockOrUnblock_SuperAdmin(this, \"已冻结\");'>冻结</button></td>" +
+                                "<td><button value='select' name='" + i + "' onclick='BlockOrUnblock_SuperAdmin(this, \"正常\");'>解冻</button></td>" +
+                                "<td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td>" +
+                            "</tr>", queryListUserInfo[i].UserName, userState);
                     }
                 }
                 html = html.Replace("$input", "<input id='inputName' type='text' placeholder='请输入姓名'/><button value='select' onclick='Add(this);'>添加</button>");
@@ -94,7 +108,11 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
             {
                 for (int i = 0; i < queryListUserInfo.Count; i++)
                 {
-                    content += string.Format("<tr><td id='queryResult' name='queryResult" + i + "'>{0}</td><td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td></tr>", queryListUserInfo[i].UserName);
+                    content += string.Format(
+                        "<tr>" +
+                            "<td id='queryResult' name='queryResult" + i + "'>{0}</td>" +
+                            "<td><button value='select' name='" + i + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td>" +
+                        "</tr>", queryListUserInfo[i].UserName);
                 }
             }
             else
@@ -108,11 +126,19 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         if (queryListUserInfo[i].UserName.Contains("{"))
                         {
                             x++;
-                            content += string.Format("<tr><th id='className_" + x + "'>{0}</th><tr>", queryListUserInfo[i].UserName);
+                            content += string.Format(
+                                "<tr>" +
+                                    "<th id='className_" + x + "'>{0}</th>" +
+                                "<tr>", queryListUserInfo[i].UserName);
                         }
                         else
                         {
-                            content += string.Format("<tr><td id='queryResult" + y + "' name='queryResult" + x + "'>{0}</td><td>{1}</td><td><input name='BatchDelTarget' type='checkbox'></input></td><td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\"," + y + ");'>删除</button></td></tr>", queryListUserInfo[i].UserPassword, queryListUserInfo[i].UserName);
+                            content += string.Format(
+                                "<tr>" +
+                                    "<td id='queryResult" + y + "' name='queryResult" + x + "'>{0}</td>" +
+                                    "<td>{1}</td><td><input name='BatchDelTarget' type='checkbox'></input></td>" +
+                                    "<td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\"," + y + ");'>删除</button></td>" +
+                                "</tr>", queryListUserInfo[i].UserPassword, queryListUserInfo[i].UserName);
                             y++;
                         }
                     }
@@ -129,7 +155,12 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         }
                         else
                         {
-                            content += string.Format("<tr><td id='queryResult' name='queryResult" + x + "'>{0}</td><td><input name='BatchDelTarget' type='checkbox'></input></td><td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td></tr>", queryListQuestion[i].Split('|')[0]);
+                            content += string.Format(
+                                "<tr>" +
+                                    "<td id='queryResult' name='queryResult" + x + "'>{0}</td>" +
+                                    "<td><input name='BatchDelTarget' type='checkbox'></input></td>" +
+                                    "<td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\",-1);'>删除</button></td>" +
+                                "</tr>", queryListQuestion[i].Split('|')[0]);
                             x++;
                         }
                     }
@@ -144,12 +175,22 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                         if (queryListScore[i].Contains("{"))
                         {
                             x++;
-                            content += string.Format("<tr><th id='testName_"+x+"'>{0}</th><tr>", queryListScore[i]);
+                            content += string.Format("<tr>" +
+                                "<th id='testName_"+x+"'>{0}</th>" +
+                                "<tr>", queryListScore[i]);
                         }
                         else
                         {
                             scoreInfo = queryListScore[i].Split('|');
-                            content += string.Format("<tr><td id='queryResult" + y + "' name='queryResult" + x + "'>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td><input name='BatchDelTarget' type='checkbox'></input></td><td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\"," + y + ");'>删除</button></td></tr>", scoreInfo[0], scoreInfo[1], scoreInfo[2], scoreInfo[3]);
+                            content += string.Format(
+                                "<tr>" +
+                                    "<td id='queryResult" + y + "' name='queryResult" + x + "'>{0}</td>" +
+                                    "<td>{1}</td>" +
+                                    "<td>{2}</td>" +
+                                    "<td>{3}</td>" +
+                                    "<td><input name='BatchDelTarget' type='checkbox'></input></td>" +
+                                    "<td><button value='select' name='" + x + "' onclick='Delete(this,\"" + displayStr + "\"," + y + ");'>删除</button></td>" +
+                                "</tr>", scoreInfo[0], scoreInfo[1], scoreInfo[2], scoreInfo[3]);
                             y++;
                         }
                     }
@@ -158,7 +199,9 @@ namespace CADWeb.WebPageByUserType.SuperAdmin
                 }
                 html = html.Replace("$batchDelete", "<button value='select' onclick='BatchDelete(\"" + displayStr + "\");'>批量删除</button>");
             }
-            html = html.Replace("请先进行查询操作", "").Replace("$content", content).Replace("$input", "").Replace("$batchDelete", "").Replace("$title", displayStr).Replace("style=\"display:none\"", "style=\"display:table\"").Replace("style=\"display:table-row\"", "style=\"display:none\"").Replace("style=\"display:table-cell\"", "style=\"display:none\"");
+            html = html.Replace("请先进行查询操作", "").Replace("$content", content).Replace("$input", "")
+                .Replace("$batchDelete", "").Replace("$title", displayStr).Replace("style=\"display:none\"", "style=\"display:table\"")
+                .Replace("style=\"display:table-row\"", "style=\"display:none\"").Replace("style=\"display:table-cell\"", "style=\"display:none\"");
             response.Write(html);
         }
 
