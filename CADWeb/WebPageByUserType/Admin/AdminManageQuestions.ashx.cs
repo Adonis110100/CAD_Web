@@ -21,7 +21,7 @@ namespace CADWeb.WebPageByUserType.Admin
             response.Write("<script type = 'text/javascript' src = '../../js/jquery-1.7.2.min.js' ></script>");
             response.Write("<script type = 'text/javascript' src = '../../js/custom.js' ></script>");
             response.Write("<link rel='stylesheet' href='../css/style.css'>");
-            response.Write("<div id=\"banner\">&nbsp;&nbsp;发布作业或考试题组");
+            response.Write("<div id=\"banner\">&nbsp;&nbsp;题库管理");
             response.Write("<a href='Admin.html'><button class='but_back'>返回</button></a></div>");
             response.Write("<div id=\"center\"><br>");
             response.Write("<HR width=\"100%\" color=#E4E4E4 SIZE=2>");
